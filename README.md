@@ -16,6 +16,18 @@ Criminal Catcher makes it easy for people to report crimes, enabling them to qui
 
 ## Screenshots
 
+<p float="center">
+<img src="https://user-images.githubusercontent.com/73775321/236671996-7b31b02a-9dc4-4164-8b22-1d05f8e3ca68.png" width="250"/>&emsp;
+<img src="https://user-images.githubusercontent.com/73775321/236672005-cb12c048-7c74-4991-89b8-0afaa003abbb.png" width="250" />&emsp;
+<img src="https://user-images.githubusercontent.com/73775321/236672014-36cf80db-7528-462a-a3a7-03947f56a4d5.png" width="250"/>&emsp;
+<img src="https://user-images.githubusercontent.com/73775321/236672021-c4e8d6fa-2213-4b3f-bc50-19fb2e0509a5.png" width="250" />&emsp;
+<img src="https://user-images.githubusercontent.com/73775321/236672029-5e3b5212-3afa-4837-a363-9d2e71c86a99.png" width="250"/>&emsp;
+<img src="https://user-images.githubusercontent.com/73775321/236672033-8aa58b35-3e61-4066-9eee-bd0b11a306d3.png" width="250" />&emsp;
+<img src="https://user-images.githubusercontent.com/73775321/236672041-f960ba0a-f69e-4249-b0ad-907eae104932.png" width="250"/>&emsp;
+<img src="https://user-images.githubusercontent.com/73775321/236672051-225858f2-f724-43cb-ac90-d6e787361e1b.png" width="250"/>&emsp;
+<img src="https://user-images.githubusercontent.com/73775321/236672059-3ded3732-34e7-4120-aa12-a4d808acf2eb.png" width="250"/>
+</p>
+
 
 
 ## Technologies Used

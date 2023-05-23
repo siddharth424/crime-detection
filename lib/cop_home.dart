@@ -1,58 +1,20 @@
-import 'package:crime_detection/form.dart';
-import 'package:crime_detection/login.dart';
-import 'package:crime_detection/display.dart';
-import 'package:crime_detection/cop_home.dart';
-
-import 'package:crime_detection/register.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:crime_detection/widget/button_widget.dart';
-import 'package:crime_detection/widget/navigation_drawer_widget.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:crime_detection/widget/navigation_drawer_widget_cop.dart';
 
-Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  static final String title = 'Home';
+class copHome extends StatefulWidget {
+  const copHome({super.key});
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        routes: {
-          'cophome': (context) => copHome(),
-          'register': (context) => MyRegister(),
-          'login': (context) => MyLogin(),
-          'home': (context) => MainPage(),
-          'form': (context) => MyForm(),
-          'display': (context) => DisplayForm(),
-        },
-        title: title,
-        theme: ThemeData(primarySwatch: Colors.blue),
-        home: MyLogin(),
-      );
+  State<copHome> createState() => _copHomeState();
 }
 
-class MainPage extends StatefulWidget {
-  @override
-  _MainPageState createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
+class _copHomeState extends State<copHome> {
   @override
   Widget build(BuildContext context) => Scaffold(
         drawer: NavigationDrawerWidget(),
         backgroundColor: Colors.white,
         // endDrawer: NavigationDrawerWidget(),
         appBar: AppBar(
-          title: Text(MyApp.title),
           backgroundColor: Colors.indigo,
           elevation: 0,
         ),

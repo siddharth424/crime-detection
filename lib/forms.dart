@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class MyForm extends StatefulWidget {
   const MyForm({super.key});
@@ -10,6 +12,45 @@ class MyForm extends StatefulWidget {
 }
 
 class _MyFormState extends State<MyForm> {
+  void _saveFormData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? formDataList = prefs.getStringList('formDataList');
+    if (formDataList == null) {
+      formDataList = [];
+    }
+
+    Map<String, dynamic> formData = {
+      'id': UniqueKey().toString(),
+      'name': name.text,
+      'phone': phone.text,
+      'dob': dob,
+      'address': address.text,
+      'aadhar': aadhar.text,
+      'occupation': occupation.text,
+      'nationality': nationality.text,
+      'offenderName': offenderName.text,
+      'startDate': startDate,
+      'endDate': endDate,
+      'offenceType': offenceType.text,
+      'offencePlace': offencePlace.text,
+      'details': details.text,
+      'suspectGender': suspectGender.text,
+      'suspectAge': suspectAge.text,
+      'suspectBuild': suspectBuild.text,
+      'suspectHeight': suspectHeight.text,
+      'suspectComplexion': suspectComplexion.text,
+      'suspectDeformities': suspectDeformities.text,
+      'suspectDialect': suspectDialect.text,
+      'suspectMarks': suspectMarks.text,
+      'status': "Registered",
+      'progressValue': 0.2,
+    };
+
+    formDataList.add(json.encode(formData));
+    await prefs.setStringList('formDataList', formDataList);
+    print(formDataList);
+  }
+
   String startDate = "";
   String endDate = "";
   String dob = "";
@@ -357,16 +398,16 @@ class _MyFormState extends State<MyForm> {
                   _activeStepIndex += 1;
                 });
               } else {
+                _saveFormData();
                 Fluttertoast.showToast(
-                    msg: "Successful Submition",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.CENTER,
-                    timeInSecForIosWeb: 5,
-                    textColor: Colors.white,
-                    fontSize: 16.0);
-                Navigator.pushNamed(context, '/');
-
-                print('Submited');
+                  msg: "Successful Submission",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 5,
+                  textColor: Colors.white,
+                  fontSize: 16.0,
+                );
+                Navigator.pushNamed(context, 'home');
               }
             },
             onStepCancel: () {

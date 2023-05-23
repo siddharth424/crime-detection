@@ -1,13 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+
+class Announcement {
+  final String title;
+  final String content;
+  final DateTime timestamp;
+
+  Announcement({
+    required this.title,
+    required this.content,
+    required this.timestamp,
+  });
+}
 
 class MyAnnouncements extends StatefulWidget {
-  const MyAnnouncements({super.key});
+  const MyAnnouncements({Key? key}) : super(key: key);
 
   @override
   State<MyAnnouncements> createState() => _MyAnnouncementsState();
 }
 
 class _MyAnnouncementsState extends State<MyAnnouncements> {
+  List<Announcement> announcements = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadAnnouncements();
+  }
+
+  Future<void> loadAnnouncements() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? announcementsData = prefs.getStringList('announcements');
+
+    if (announcementsData != null) {
+      setState(() {
+        announcements = announcementsData.map((data) {
+          Map<String, dynamic> decodedData = json.decode(data);
+          return Announcement(
+            title: decodedData['title'],
+            content: decodedData['content'],
+            timestamp: DateTime.parse(decodedData['timestamp']),
+          );
+        }).toList();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,8 +63,10 @@ class _MyAnnouncementsState extends State<MyAnnouncements> {
         ),
       ),
       body: ListView.builder(
-        itemCount: 1,
+        itemCount: announcements.length,
         itemBuilder: (BuildContext context, int index) {
+          Announcement announcement = announcements[index];
+
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
@@ -46,7 +88,7 @@ class _MyAnnouncementsState extends State<MyAnnouncements> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Latest Crime Statistics: A 10% Decrease in Reported Crimes',
+                      announcement.title,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -54,11 +96,7 @@ class _MyAnnouncementsState extends State<MyAnnouncements> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'Dear community members,\n\n'
-                      'We are pleased to share with you that the latest crime statistics indicate a 10% decrease in reported crimes in our region as compared to the same period last year. While this is an encouraging development, we must continue to remain vigilant and take proactive measures to prevent crime.\n\n'
-                      'Our crime detection app is here to assist you in staying informed and reporting any suspicious activities to the authorities. With the latest update, we have made significant improvements to the user interface, making it even more intuitive and user-friendly. Additionally, we have added a new feature that allows you to file a First Information Report (FIR) with ease, directly from the app.\n\n'
-                      'As a responsible member of the community, it is our duty to come together and ensure the safety and security of our region. Our app is dedicated to providing you with real-time crime alerts and comprehensive information to keep you aware of the latest developments. With your support and our commitment, we can continue to make our community a safer place.\n\n'
-                      'Download the latest version of our app now and stay up-to-date on the latest crime news in your area. Thank you for your continued trust and support.',
+                      announcement.content,
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.grey[700],
@@ -69,16 +107,16 @@ class _MyAnnouncementsState extends State<MyAnnouncements> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '2 hours ago',
+                          announcement.timestamp.toString(),
                           style: TextStyle(
                             color: Colors.grey[500],
                           ),
                         ),
                         ElevatedButton(
                           onPressed: () {},
-                          style: const ButtonStyle(
+                          style: ButtonStyle(
                             backgroundColor:
-                                MaterialStatePropertyAll<Color>(Colors.indigo),
+                                MaterialStateProperty.all<Color>(Colors.indigo),
                           ),
                           child: Text('View'),
                         ),

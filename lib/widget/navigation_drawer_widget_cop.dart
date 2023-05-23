@@ -2,12 +2,13 @@ import 'package:crime_detection/announcents.dart';
 import 'package:crime_detection/faceMatch.dart';
 import 'package:crime_detection/status.dart';
 import 'package:crime_detection/updates.dart';
+import 'package:crime_detection/updatestatus.dart';
 import 'package:flutter/material.dart';
 import 'package:crime_detection/forms.dart';
 import 'package:crime_detection/login.dart';
 import 'package:crime_detection/home.dart';
 import 'package:crime_detection/display.dart';
-import 'package:crime_detection/sos.dart';
+import 'package:crime_detection/updateAnnouncements.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   final padding = EdgeInsets.symmetric(horizontal: 20);
@@ -43,43 +44,36 @@ class NavigationDrawerWidget extends StatelessWidget {
                   buildSearchField(),
                   const SizedBox(height: 24),
                   buildMenuItem(
-                    text: 'Report FIR',
+                    text: 'Update FIR',
                     icon: Icons.book,
                     onClicked: () => selectedItem(context, 0),
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
-                    text: 'Track FIR',
-                    icon: Icons.route,
+                    text: 'Criminal?',
+                    icon: Icons.face,
                     onClicked: () => selectedItem(context, 1),
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
-                    text: 'SOS',
-                    icon: Icons.sos,
+                    text: 'Post Announcements',
+                    icon: Icons.announcement_outlined,
                     onClicked: () => selectedItem(context, 2),
-                  ),
-                  const SizedBox(height: 16),
-                  buildMenuItem(
-                    text: 'Updates',
-                    icon: Icons.update,
-                    onClicked: () => selectedItem(context, 3),
                   ),
                   const SizedBox(height: 24),
                   Divider(color: Colors.white70),
                   const SizedBox(height: 16),
                   buildMenuItem(
-                    text: 'Announcements',
-                    icon: Icons.announcement_outlined,
-                    onClicked: () => selectedItem(context, 4),
+                    text: 'Updates',
+                    icon: Icons.notifications_outlined,
+                    onClicked: () => selectedItem(context, 3),
                   ),
-                  const SizedBox(height: 24),
-                  Visibility(
-                      child: buildMenuItem(
+                  const SizedBox(height: 16),
+                  buildMenuItem(
                     text: 'Log out',
                     icon: Icons.logout,
-                    onClicked: () => selectedItem(context, 5),
-                  )),
+                    onClicked: () => selectedItem(context, 4),
+                  ),
                 ],
               ),
             ),
@@ -174,17 +168,17 @@ class NavigationDrawerWidget extends StatelessWidget {
     switch (index) {
       case 0:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => MyForm(),
+          builder: (context) => DisplayForm(),
         ));
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => MyStatus(),
+          builder: (context) => MyFaceMatch(),
         ));
         break;
       case 2:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => SOSPage(),
+          builder: (context) => UpdateAnnouncements(),
         ));
         break;
       case 3:
@@ -193,11 +187,6 @@ class NavigationDrawerWidget extends StatelessWidget {
         ));
         break;
       case 4:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => MyAnnouncements(),
-        ));
-        break;
-      case 5:
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => MyLogin(),
         ));
